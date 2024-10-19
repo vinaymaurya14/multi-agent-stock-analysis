@@ -6,25 +6,26 @@ This project automates the process of analyzing the top 10 performing stocks ove
 
 ## Repository Structure
 
+```bash
 multi-agent-stock-analysis/
 │
 ├── lambda_functions/
-│   ├── stock_search_agent.py
-│   ├── data_fetching_agent.py
-│   ├── data_saving_agent.py
-│   ├── data_analysis_agent.py
-│   ├── store_performance_dynamodb.py
+│   ├── stock_search_agent.py            # Lambda function for searching top stocks
+│   ├── data_fetching_agent.py           # Lambda function for fetching stock data
+│   ├── data_saving_agent.py             # Lambda function for saving data to S3
+│   ├── data_analysis_agent.py           # Lambda function for analyzing stock performance
+│   ├── store_performance_dynamodb.py    # Lambda function for storing analysis in DynamoDB
 │
 ├── step_functions/
-│   └── step_functions.json
+│   └── step_functions.json              # Step Functions state machine definition
 │
 ├── eventbridge/
-│   └── eventbridge_cron_rule.txt
+│   └── eventbridge_cron_rule.txt        # EventBridge cron expression for scheduling the workflow
 │
-├── requirements.txt
-│
-├── README.md
+├── requirements.txt                     # Python dependencies for the Lambda functions
+├── README.md                            # Project overview, setup, and instructions
 └── .gitignore
+```
 
 ## Lambda Functions
 
