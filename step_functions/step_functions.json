@@ -1,0 +1,42 @@
+{
+    "Comment": "Stock Performance Workflow",
+    "StartAt": "StockSearch",
+    "States": {
+      "StockSearch": {
+        "Type": "Task",
+        "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:StockSearchLambda",
+        "Next": "ParallelDataFetch"
+      },
+      "ParallelDataFetch": {
+        "Type": "Parallel",
+        "Branches": [
+          {
+            "StartAt": "FetchStockData",
+            "States": {
+              "FetchStockData": {
+                "Type": "Task",
+                "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:DataFetchingLambda",
+                "Next": "SaveStockData"
+              },
+              "SaveStockData": {
+                "Type": "Task",
+                "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:DataSavingLambda",
+                "End": true
+              }
+            }
+          }
+        ],
+        "Next": "AnalyzeStockPerformance"
+      },
+      "AnalyzeStockPerformance": {
+        "Type": "Task",
+        "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:DataAnalysisLambda",
+        "Next": "StorePerformanceReport"
+      },
+      "StorePerformanceReport": {
+        "Type": "Task",
+        "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:StoreToDynamoDBLambda",
+        "End": true
+      }
+    }
+  }  
